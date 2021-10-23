@@ -9,7 +9,7 @@ html, body, #container {
 }
 
 .select {
-  @apply border focus:outline-none py-2 px-3 rounded-xl font-montserrat font-medium cursor-pointer;
+  @apply border focus:outline-none py-2 rounded-xl font-montserrat font-medium cursor-pointer border-gray-200;
 }
 
 .header {
@@ -17,23 +17,23 @@ html, body, #container {
 }
 
 .btn {
-  @apply py-2 px-5 bg-my-pink text-white font-montserrat text-center font-medium cursor-pointer rounded-md ring ring-offset-2 ring-transparent focus:ring-my-pink transition-all duration-300;
+  @apply py-2 px-5 bg-my-pink text-white font-montserrat text-center font-medium cursor-pointer rounded-md ring ring-offset-2 ring-transparent focus:ring-my-pink transition-all duration-300 inline-block;
 }
 
 .btn-edit {
-  @apply py-2 font-medium px-5 bg-yellow-500 text-white text-center cursor-pointer rounded-md ring ring-offset-2 ring-transparent focus:ring-yellow-500 transition-all duration-300;
+  @apply py-2 font-medium px-5 bg-yellow-500 text-white text-center cursor-pointer rounded-md ring ring-offset-2 ring-transparent focus:ring-yellow-500 transition-all duration-300 inline-block;
 }
 
 .btn-delete {
-  @apply py-2 font-medium px-5 bg-red-600 text-white text-center cursor-pointer rounded-md ring ring-offset-2 ring-transparent focus:ring-red-600 transition-all duration-300;
+  @apply py-2 font-medium px-5 bg-red-600 text-white text-center cursor-pointer rounded-md ring ring-offset-2 ring-transparent focus:ring-red-600 transition-all duration-300 inline-block;
 }
 
 .btn-ghost {
-  @apply py-2 font-medium px-5 text-my-dark rounded-md ring ring-offset-2 ring-transparent;
+  @apply py-2 font-medium px-5 text-my-dark rounded-md ring ring-offset-2 ring-transparent inline-block;
 }
 
 .input {
-  @apply font-montserrat py-2 px-5 border rounded-md focus:outline-none w-full ring ring-offset-2 ring-transparent focus:ring-my-pink transition-all duration-300 sm:text-base text-sm;
+  @apply font-montserrat py-2 px-5 border border-gray-200 rounded-md focus:outline-none w-full ring ring-offset-2 ring-transparent focus:ring-my-pink focus:border-transparent transition-all duration-300 sm:text-base text-sm;
 }
 
 .input.error {
@@ -338,7 +338,6 @@ html, body, #container {
 
 .modal__up-img {
   @apply object-cover w-full object-center rounded-md;
-  max-height: 200px;
 }
 
 .akun {

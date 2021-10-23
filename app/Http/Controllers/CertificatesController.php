@@ -15,6 +15,7 @@ class CertificatesController extends Controller
     public function index()
     {
         return view('certificates.index', [
+            'title' => "My Achievement",
             'certificates' => Certificate::all()
         ]);
     }

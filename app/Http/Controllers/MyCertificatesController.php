@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Certificate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
-class CertificatesController extends Controller
+class MyCertificatesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +18,10 @@ class CertificatesController extends Controller
      */
     public function index()
     {
-        // return view('certificates.index', [
-        //     'certificates' => Certificate::all()
-        // ]);
+        return view('certificates.my-certificates', [
+            'certificates' => Certificate::filter(request(['s']))->where('user_id', Auth::id())->orderBy('name')->paginate(12),
+            'title' => 'Sertifikat Saya | My Achievement'
+        ]);
     }
 
     /**
@@ -26,7 +31,9 @@ class CertificatesController extends Controller
      */
     public function create()
     {
-        //
+        return view('certificates.create', [
+            'title' => 'Tambah Sertifikat | My Achievement'
+        ]);
     }
 
     /**
@@ -37,7 +44,19 @@ class CertificatesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->file('image')->store('null');
+
+        $validatedData = $request->validate([
+            'course' => 'required|max:255',
+            'organizer' => 'required|max:65535',
+        ]);
+
+        $validatedData['slug'] = Str::lower(Str::slug($validatedData['course'])) . '-' . mt_rand(1000, 9999);
+        $validatedData['user_id'] = Auth::id();
+
+        Certificate::create($validatedData);
+
+        return redirect('/codes/' . $validatedData['slug']);
     }
 
     /**

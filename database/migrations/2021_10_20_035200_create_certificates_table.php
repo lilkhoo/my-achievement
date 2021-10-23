@@ -17,6 +17,7 @@ class CreateCertificatesTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('course');
+            $table->string('slug');
             $table->string('organizer');
             $table->string('image');
             $table->timestamps();
