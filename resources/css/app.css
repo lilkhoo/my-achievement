@@ -9,7 +9,7 @@ html, body, #container {
 }
 
 .select {
-  @apply border focus:outline-none py-2 rounded-xl font-montserrat font-medium cursor-pointer border-gray-200;
+  @apply border focus:outline-none py-2 rounded-md font-montserrat font-medium cursor-pointer border-gray-200;
 }
 
 .header {

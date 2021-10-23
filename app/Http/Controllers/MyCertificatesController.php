@@ -6,7 +6,6 @@ use App\Models\Certificate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 
 class MyCertificatesController extends Controller
@@ -19,7 +18,7 @@ class MyCertificatesController extends Controller
     public function index()
     {
         return view('certificates.my-certificates', [
-            'certificates' => Certificate::filter(request(['s']))->where('user_id', Auth::id())->orderBy('name')->paginate(12),
+            'certificates' => Certificate::filter(request(['s']))->where('user_id', Auth::id())->orderBy('course')->paginate(12),
             'title' => 'Sertifikat Saya | My Achievement'
         ]);
     }
@@ -44,28 +43,28 @@ class MyCertificatesController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->file('image')->store('null');
-
         $validatedData = $request->validate([
             'course' => 'required|max:255',
-            'organizer' => 'required|max:65535',
+            'organizer' => 'required|max:255',
+            'image' => 'required|image|file|max:2048'
         ]);
 
         $validatedData['slug'] = Str::lower(Str::slug($validatedData['course'])) . '-' . mt_rand(1000, 9999);
         $validatedData['user_id'] = Auth::id();
+        $validatedData['image'] = $request->file('image')->store(null);
 
         Certificate::create($validatedData);
 
-        return redirect('/codes/' . $validatedData['slug']);
+        return redirect('/certificates');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Certificate  $certificate
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Certificate $certificate)
     {
         //
     }
@@ -73,34 +72,63 @@ class MyCertificatesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Certificate  $certificate
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Certificate $certificate)
     {
-        //
+        return view('certificates.edit', [
+            'title' => 'Edit ' . $certificate->course . ' | My Achievement',
+            'certificate' => $certificate,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Certificate  $certificate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Certificate $certificate)
     {
-        //
+        $oldImage = Certificate::firstWhere('id', $certificate->id)->image;
+
+        $rules = [
+            'course' => 'required|max:255',
+            'organizer' => 'required|max:255',
+        ];
+
+        if ($request->file('image')) {
+            Storage::delete($oldImage);
+            $rules['image'] = 'required|image|file|max:2048';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        $validatedData['slug'] = Str::lower(Str::slug($validatedData['course'])) . '-' . mt_rand(1000, 9999);
+        $validatedData['user_id'] = Auth::id();
+        
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store(null);
+        }
+
+        Certificate::where('id', $certificate->id)->update($validatedData);
+
+        return redirect('/certificates');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Certificate  $certificate
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Certificate $certificate)
     {
-        //
+        Certificate::destroy($certificate->id);
+        Storage::delete($certificate->image);
+
+        return redirect('/certificates');
     }
 }

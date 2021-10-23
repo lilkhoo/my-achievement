@@ -20,6 +20,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/', [CertificatesController::class, 'index'])->middleware(['auth']);
-Route::resource('/self', MyCertificatesController::class)->middleware(['auth']);
+Route::resource('/certificates', MyCertificatesController::class)->middleware(['auth']);
 
 require __DIR__ . '/auth.php';

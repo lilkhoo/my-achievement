@@ -30,12 +30,12 @@ return [
 
     'disks' => [
 
-        // 'custom' => [
-        //     'driver' => 'local',
-        //     'root' => 'certificates-img',
-        //     'url' => env('APP_URL').'/public',
-        //     'visibility' => 'public',
-        // ],
+        'custom' => [
+            'driver' => 'local',
+            'root' => 'certificates-images',
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
+        ],
 
         'local' => [
             'driver' => 'local',

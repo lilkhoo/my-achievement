@@ -19,7 +19,7 @@
                   <i class='bx bx-user nav__profile-link-icon'></i>
                   <span>Profil</span>
                </a>
-               <a class="nav__profile-link" href="/self">
+               <a class="nav__profile-link" href="/certificates">
                   <i class='bx bx-award nav__profile-link-icon'></i>
                   <span>Sertifikat</span>
                </a>
