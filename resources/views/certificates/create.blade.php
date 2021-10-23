@@ -29,7 +29,7 @@
          </div>
          <div class="flex gap-2">
             <button class="btn">Tambah</button>
-            <a href="/certificates" class="btn-ghost btn-batal">Batal</a>
+            <a href="/self" class="btn-ghost btn-batal">Batal</a>
          </div>
       </form>
    </div>

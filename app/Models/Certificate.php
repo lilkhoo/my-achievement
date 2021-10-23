@@ -24,7 +24,7 @@ class Certificate extends Model
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['s'] ?? false, function ($query, $search) {
-            return $query->where('course', 'like', '%' . $search . '%');;
+            return $query->where('course', 'like', '%' . $search . '%');
         });
     }
 }
