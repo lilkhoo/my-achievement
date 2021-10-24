@@ -28,9 +28,9 @@
                   <span>Akun</span>
                </a>
                <hr>
-               <form action="POST" action="/logout">
+               <form method="POST" action="/logout">
                   @csrf
-                  <button class="nav__profile-link" href="/logout">
+                  <button class="nav__profile-link">
                      <i class='bx bx-log-out-circle nav__profile-link-icon'></i>
                      <span>Keluar</span>
                   </button>

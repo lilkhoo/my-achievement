@@ -16,7 +16,7 @@ class CertificatesController extends Controller
     {
         return view('certificates.index', [
             'title' => "My Achievement",
-            'certificates' => Certificate::all()
+            'certificates' => Certificate::paginate(12)
         ]);
     }
 
@@ -44,10 +44,10 @@ class CertificatesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Certificate  $certificate
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Certificate $certificate)
     {
         //
     }
@@ -55,10 +55,10 @@ class CertificatesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Certificate  $certificate
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Certificate $certificate)
     {
         //
     }
@@ -67,10 +67,10 @@ class CertificatesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Certificate  $certificate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Certificate $certificate)
     {
         //
     }
@@ -78,10 +78,10 @@ class CertificatesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Certificate  $certificate
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Certificate $certificate)
     {
         //
     }

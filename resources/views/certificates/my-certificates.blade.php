@@ -52,6 +52,7 @@
             @endempty
          @endif
       </div>
+      {!! $certificates->links() !!}
    </div>
 </section>
 @endsection
