@@ -31,9 +31,7 @@
             <h1 class="header">Data Kosong!!</h1>
          @endif
       </div>
-      <div>
-         {!! $certificates->links() !!}
-      </div>
+      {!! $certificates->links() !!}
    </div>
 </section>
 @endsection
