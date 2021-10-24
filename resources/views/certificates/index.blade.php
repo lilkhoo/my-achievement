@@ -13,11 +13,11 @@
          @if ($certificates->count())
              @foreach ($certificates as $certificate)
                <div class="main__certificate">
-                  <img class="main__certificate-img" src="assets/certificates/{{ $certificate->image }}" alt="<?= $row['course']; ?>">
+                  <img class="main__certificate-img" src="/certificates-images/{{ $certificate->image }}" alt="<?= $certificate->course ?>">
                   <div class="main__certificate-detail">
                      <div class="main__certificate-header">
                         <h3 class="main__certificate-course">{{ $certificate->course }}</h3>
-                        <small class="main__certificate-user"><a href="#">@{{ $certificate->user->username }}</a></small>
+                        <small class="main__certificate-user"><a href="#">{{ `@{$certificate->user->username}` }}</a></small>
                      </div>
                      <div>
                         <strong>From:</strong>
