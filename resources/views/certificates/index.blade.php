@@ -3,14 +3,23 @@
 @section('container')
 <section class="main">
    <div class="main__container">
-      <div>
-         @isset ($_GET['sort'])
-            <a class="inline-block font-medium py-1.5 px-8 rounded-full {{ ($_GET['sort'] == 'terbaru' || ($_GET['sort'] != 'terbaru' && $_GET['sort'] != 'terlama')) ? 'bg-my-pink text-white' : 'bg-transparent border border-my-pink text-my-pink'}}" href="?sort=terbaru">Terbaru</a>
-            <a class="inline-block font-medium py-1.5 px-8 rounded-full {{ ($_GET['sort'] == 'terlama') ? 'bg-my-pink text-white' : 'bg-transparent border border-my-pink text-my-pink'}}" href="?sort=terlama">Terlama</a>
-         @else
-            <a class="inline-block font-medium py-1.5 px-8 rounded-full bg-my-pink text-white" href="?sort=terbaru">Terbaru</a>
-            <a class="inline-block font-medium py-1.5 px-8 rounded-full bg-transparent border border-my-pink text-my-pink" href="?sort=terlama">Terlama</a>
-         @endif
+      <div class="profile__filter">
+         <div>
+            @if (request('sort'))
+               <a class="inline-block font-medium py-1.5 px-8 rounded-full {{ (request('sort') == 'terbaru' || (request('sort') != 'terbaru' && request('sort') != 'terlama')) ? 'bg-my-pink text-white' : 'bg-transparent border border-my-pink text-my-pink'}}" href="?sort=terbaru @if (request('s'))&s={{ request('s') }} @endif">Terbaru</a>
+               <a class="inline-block font-medium py-1.5 px-8 rounded-full {{ (request('sort') == 'terlama') ? 'bg-my-pink text-white' : 'bg-transparent border border-my-pink text-my-pink'}}" href="?sort=terlama @if (request('s'))&s={{ request('s') }} @endif">Terlama</a>
+            @else
+               <a class="inline-block font-medium py-1.5 px-8 rounded-full bg-my-pink text-white" href="?sort=terbaru @if (request('s'))&s={{ request('s') }} @endif">Terbaru</a>
+               <a class="inline-block font-medium py-1.5 px-8 rounded-full bg-transparent border border-my-pink text-my-pink" href="?sort=terlama @if (request('s'))&s={{ request('s') }} @endif">Terlama</a>
+            @endif
+         </div>
+         <form action="/" class="profile__search">
+            @if (request('sort'))
+                <input type="hidden" name="sort" value="{{ request('sort') }}">
+            @endif
+            <input class="input" type="search" name="s" value="{{ request('s') }}" placeholder="Cari sertifikat...">
+            <button class="btn">Cari</button>
+         </form>
       </div>
       <div class="main__certificates">
          @if ($certificates->count())

@@ -12,11 +12,11 @@
                   <a class="inline-block font-medium py-1.5 px-8 rounded-full {{ (request('sort') == 'terbaru' || (request('sort') != 'terbaru' && request('sort') != 'terlama')) ? 'bg-my-pink text-white' : 'bg-transparent border border-my-pink text-my-pink'}}" href="?sort=terbaru @if (request('s'))&s={{ request('s') }} @endif">Terbaru</a>
                   <a class="inline-block font-medium py-1.5 px-8 rounded-full {{ (request('sort') == 'terlama') ? 'bg-my-pink text-white' : 'bg-transparent border border-my-pink text-my-pink'}}" href="?sort=terlama @if (request('s'))&s={{ request('s') }} @endif">Terlama</a>
                @else
-                  <a class="inline-block font-medium py-1.5 px-8 rounded-full bg-my-pink text-white" href="?sort=terbaru">Terbaru</a>
-                  <a class="inline-block font-medium py-1.5 px-8 rounded-full bg-transparent border border-my-pink text-my-pink" href="?sort=terlama">Terlama</a>
+                  <a class="inline-block font-medium py-1.5 px-8 rounded-full bg-my-pink text-white" href="?sort=terbaru @if (request('s'))&s={{ request('s') }} @endif">Terbaru</a>
+                  <a class="inline-block font-medium py-1.5 px-8 rounded-full bg-transparent border border-my-pink text-my-pink" href="?sort=terlama @if (request('s'))&s={{ request('s') }} @endif">Terlama</a>
                @endif
             </div>
-            <form action="/certificates" class="profile__search">
+            <form action="/" class="profile__search">
                @if (request('sort'))
                    <input type="hidden" name="sort" value="{{ request('sort') }}">
                @endif
