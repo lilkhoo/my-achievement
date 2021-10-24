@@ -18,7 +18,7 @@
                   <div class="main__certificate-detail">
                      <div class="main__certificate-header">
                         <h3 class="main__certificate-course">{{ $certificate->course }}</h3>
-                        <small class="main__certificate-user"><a href="userinfo/{{ $certificate->user->username }}">{{ "@" . $certificate->user->username }}</a></small>
+                        <small class="main__certificate-user"><a href="/user/{{ $certificate->user->username }}">{{ "@" . $certificate->user->username }}</a></small>
                      </div>
                      <div>
                         <strong>From:</strong>
