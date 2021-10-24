@@ -3,13 +3,15 @@
 @section('container')
 <section class="main">
    <div class="main__container">
-      <form action="/certificates" class="profile__search">
-         <select class="select" name="selectWaktu" id="selectWaktu">
-            <option value="desc">Terbaru</option>
-            <option value="asc">Terlama</option>
-         </select>
-         <button class="btn">Terapkan</button>
-      </form>
+      <div>
+         @isset ($_GET['sort'])
+            <a class="inline-block font-medium py-1.5 px-8 rounded-full {{ ($_GET['sort'] == 'terbaru' || ($_GET['sort'] != 'terbaru' && $_GET['sort'] != 'terlama')) ? 'bg-my-pink text-white' : 'bg-transparent border border-my-pink text-my-pink'}}" href="?sort=terbaru">Terbaru</a>
+            <a class="inline-block font-medium py-1.5 px-8 rounded-full {{ ($_GET['sort'] == 'terlama') ? 'bg-my-pink text-white' : 'bg-transparent border border-my-pink text-my-pink'}}" href="?sort=terlama">Terlama</a>
+         @else
+            <a class="inline-block font-medium py-1.5 px-8 rounded-full bg-my-pink text-white" href="?sort=terbaru">Terbaru</a>
+            <a class="inline-block font-medium py-1.5 px-8 rounded-full bg-transparent border border-my-pink text-my-pink" href="?sort=terlama">Terlama</a>
+         @endif
+      </div>
       <div class="main__certificates">
          @if ($certificates->count())
              @foreach ($certificates as $certificate)
