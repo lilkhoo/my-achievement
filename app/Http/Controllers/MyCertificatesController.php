@@ -18,7 +18,7 @@ class MyCertificatesController extends Controller
     public function index()
     {
         return view('certificates.my-certificates', [
-            'certificates' => Certificate::filter(request(['s']))->where('user_id', Auth::id())->orderBy('course')->paginate(12),
+            'certificates' => Certificate::filter(request(['s', 'sort']))->where('user_id', Auth::id())->orderBy('course')->paginate(12),
             'title' => 'Sertifikat Saya | My Achievement'
         ]);
     }

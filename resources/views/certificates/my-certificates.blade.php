@@ -7,14 +7,19 @@
          <h1 class="header">Sertifikat Saya</h1>
          <a href="/certificates/create" class="btn" id="btn-tambah">Tambah</a>
          <div class="profile__filter">
+            <div>
+               @if (request('sort'))
+                  <a class="inline-block font-medium py-1.5 px-8 rounded-full {{ (request('sort') == 'terbaru' || (request('sort') != 'terbaru' && request('sort') != 'terlama')) ? 'bg-my-pink text-white' : 'bg-transparent border border-my-pink text-my-pink'}}" href="?sort=terbaru @if (request('s'))&s={{ request('s') }} @endif">Terbaru</a>
+                  <a class="inline-block font-medium py-1.5 px-8 rounded-full {{ (request('sort') == 'terlama') ? 'bg-my-pink text-white' : 'bg-transparent border border-my-pink text-my-pink'}}" href="?sort=terlama @if (request('s'))&s={{ request('s') }} @endif">Terlama</a>
+               @else
+                  <a class="inline-block font-medium py-1.5 px-8 rounded-full bg-my-pink text-white" href="?sort=terbaru">Terbaru</a>
+                  <a class="inline-block font-medium py-1.5 px-8 rounded-full bg-transparent border border-my-pink text-my-pink" href="?sort=terlama">Terlama</a>
+               @endif
+            </div>
             <form action="/certificates" class="profile__search">
-               <select class="select" name="selectWaktu" id="selectWaktu">
-                  <option value="desc">Terbaru</option>
-                  <option value="asc">Terlama</option>
-               </select>
-               <button class="btn">Terapkan</button>
-            </form>
-            <form action="/certificates" class="profile__search">
+               @if (request('sort'))
+                   <input type="hidden" name="sort" value="{{ request('sort') }}">
+               @endif
                <input class="input" type="search" name="s" value="{{ request('s') }}" placeholder="Cari sertifikat...">
                <button class="btn">Cari</button>
             </form>
@@ -45,7 +50,7 @@
                </div>
              @endforeach
          @else
-            @empty($_GET['s'])
+            @empty(request('s'))
                <h1 class="header col-span-full">Data Kosong!!</h1>
             @else
                <h1 class="header col-span-full">Tidak dapat menemukan data!!</h1>

@@ -14,19 +14,9 @@ class CertificatesController extends Controller
      */
     public function index()
     {
-        $data = Certificate::orderByDesc('created_at')->paginate(12);
-
-        if (request('sort')) {
-            if (request('sort') == 'terbaru' || ($_GET['sort'] != 'terbaru' && $_GET['sort'] != 'terlama')) {
-                $data = Certificate::orderByDesc('created_at')->paginate(12);
-            } else if (request('sort') == 'terlama') {
-                $data = Certificate::orderBy('created_at')->paginate(12);
-            }
-        }
-
         return view('certificates.index', [
             'title' => "My Achievement",
-            'certificates' => $data
+            'certificates' => Certificate::filter(request(['s', 'sort']))->paginate(12)
         ]);
     }
 
