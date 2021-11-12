@@ -15,7 +15,7 @@ class CertificatesController extends Controller
     public function index()
     {
         return view('certificates.index', [
-            'title' => "My Achievement",
+            'title' => "MyAchievement",
             'certificates' => Certificate::filter(request(['s', 'sort']))->paginate(12)
         ]);
     }

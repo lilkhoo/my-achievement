@@ -3,6 +3,9 @@
 use App\Http\Controllers\CertificatesController;
 use App\Http\Controllers\MyCertificatesController;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Models\Certificate;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,5 +24,33 @@ Route::get('/dashboard', function () {
 
 Route::get('/', [CertificatesController::class, 'index'])->middleware(['auth']);
 Route::resource('/certificates', MyCertificatesController::class)->middleware(['auth']);
+
+// Route User
+Route::get('/user', function () {
+
+    return view('users.index', [
+        'title' => 'Users | MyAchievement',
+        'users' => [User::firstWhere('id', 1), User::firstWhere('id', 2), User::firstWhere('id', 3)]
+    ]);
+})->middleware(['auth'])->name('user');
+
+
+// Route Profil
+Route::get('/profil', function () {
+
+    return view('profil.index', [
+        'title' => Auth::user()->username . '| MyAchievement',
+        'certificates' => Certificate::filter(request(['s', 'sort']))->where('user_id', Auth::id())->orderBy('course')->paginate(12),
+    ]);
+})->middleware(['auth'])->name('profil');
+
+Route::get('/peringkat', function () {
+
+    return view('peringkat.index', [
+        'title' => 'Peringkat | MyAchievement',
+        'users' => [User::firstWhere('id', 1), User::firstWhere('id', 2), User::firstWhere('id', 3)]
+    ]);
+})->middleware(['auth'])->name('user');
+
 
 require __DIR__ . '/auth.php';

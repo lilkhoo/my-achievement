@@ -550,7 +550,6 @@ video {
       [type='email'],
       [type='url'],
       [type='password'],
-      [type='date'],
       [type='search'],
       [type='time'],
       textarea,
@@ -571,7 +570,7 @@ video {
   line-height: 1.5rem;
 }
 
-[type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='date']:focus, [type='search']:focus, [type='time']:focus, textarea:focus, select:focus{
+[type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='search']:focus, [type='time']:focus, textarea:focus, select:focus{
   outline: 2px solid transparent;
   outline-offset: 2px;
   --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
@@ -1004,6 +1003,10 @@ select{
   width: 5rem;
 }
 
+.w-24{
+  width: 6rem;
+}
+
 .w-28{
   width: 7rem;
 }
@@ -1257,10 +1260,6 @@ select{
   overflow: hidden;
 }
 
-.break-all{
-  word-break: break-all;
-}
-
 .rounded{
   border-radius: 0.25rem;
 }
@@ -1352,11 +1351,6 @@ select{
 .hover\:border-gray-300:hover{
   --tw-border-opacity: 1;
   border-color: rgba(209, 213, 219, var(--tw-border-opacity));
-}
-
-.hover\:border-my-pink:hover{
-  --tw-border-opacity: 1;
-  border-color: rgba(234, 109, 197, var(--tw-border-opacity));
 }
 
 .focus\:border-transparent:focus{

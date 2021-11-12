@@ -19,7 +19,7 @@ class MyCertificatesController extends Controller
     {
         return view('certificates.my-certificates', [
             'certificates' => Certificate::filter(request(['s', 'sort']))->where('user_id', Auth::id())->orderBy('course')->paginate(12),
-            'title' => 'Sertifikat Saya | My Achievement'
+            'title' => 'Sertifikat Saya | MyAchievement'
         ]);
     }
 
@@ -31,7 +31,7 @@ class MyCertificatesController extends Controller
     public function create()
     {
         return view('certificates.create', [
-            'title' => 'Tambah Sertifikat | My Achievement'
+            'title' => 'Tambah Sertifikat | MyAchievement'
         ]);
     }
 
@@ -108,7 +108,7 @@ class MyCertificatesController extends Controller
 
         $validatedData['slug'] = Str::lower(Str::slug($validatedData['course'])) . '-' . mt_rand(1000, 9999);
         $validatedData['user_id'] = Auth::id();
-        
+
         if ($request->file('image')) {
             $validatedData['image'] = $request->file('image')->store(null);
         }
