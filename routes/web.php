@@ -5,6 +5,7 @@ use App\Http\Controllers\MyCertificatesController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\Certificate;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -51,6 +52,18 @@ Route::get('/peringkat', function () {
         'users' => [User::firstWhere('id', 1), User::firstWhere('id', 2), User::firstWhere('id', 3)]
     ]);
 })->middleware(['auth'])->name('user');
+
+
+Route::get('/akun', function () {
+
+    return view('accounts.index', [
+        'title' => Auth::user()->username . '| MyAchievement',
+        'user' => User::firstWhere('id', Auth::id())
+    ]);
+})->middleware(['auth'])->name('account');
+
+Route::post('/akun/{user:id}', [UserController::class, 'update']);
+
 
 
 require __DIR__ . '/auth.php';
