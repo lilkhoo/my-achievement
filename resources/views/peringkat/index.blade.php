@@ -24,7 +24,7 @@
          
          <div class="user__card">
             <div class="user__img">
-               <img class="user__pic" src="{{ $user->avatar }}" alt="{{ $user->name }}">
+               <img class="user__pic" src="{{ ($user->is_edited) ? asset('avatar/' . $user->avatar) : $user->avatar }}" alt="{{ $user->name }}">
                <div class="user__peringkat">
                   <p class="user__peringkat-detail">1</p>
                </div>

@@ -31,6 +31,13 @@ class UserController extends Controller
 
         if ($request->file('avatar')) {
             $validatedData['avatar'] = $request->file('avatar')->store(null, 'akun');
+            $validatedData['is_edited'] = true;
         }
+
+        if ($request->password != '') $validatedData['password'] = bcrypt($request->password);
+
+        User::where('id', $user->id)->update($validatedData);
+
+        return redirect('/akun');
     }
 }

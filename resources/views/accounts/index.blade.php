@@ -9,7 +9,7 @@
          <div class="akun__form-img">
             <h1 class="akun__form-label">Foto Profil</h1>
             <div class="akun__img-container">
-               <img class="akun__img" src="{{ $user->avatar }}" data-foto="{{ $user->avatar }}" alt="{{ $user->name }}">
+               <img class="akun__img" src="{{ ($user->is_edited) ? asset('avatar/' . $user->avatar) : $user->avatar }}" data-foto="{{ ($user->is_edited) ? asset('avatar/' . $user->avatar) : $user->avatar }}" alt="{{ $user->name }}">
                <div>
                   <label class="btn" for="foto">Ganti</label>
                   <input type="file" name="avatar" id="foto" accept="image/*" class="input-file">
@@ -35,7 +35,7 @@
                @enderror
           </div>
           <div>
-            <label class="akun__form-label" for="password">Password :</label>
+            <label class="akun__form-label" for="password">Password Baru :</label>
             <input class="input @error('password') error @enderror" type="password" name="password" id="password">
                @error('password')
                    <small class="error-message show">{{ $message }}</small>   

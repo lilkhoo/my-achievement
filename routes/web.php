@@ -28,42 +28,36 @@ Route::resource('/certificates', MyCertificatesController::class)->middleware(['
 
 // Route User
 Route::get('/user', function () {
-
     return view('users.index', [
         'title' => 'Users | MyAchievement',
         'users' => [User::firstWhere('id', 1), User::firstWhere('id', 2), User::firstWhere('id', 3)]
     ]);
 })->middleware(['auth'])->name('user');
 
-
 // Route Profil
 Route::get('/profil', function () {
-
     return view('profil.index', [
-        'title' => Auth::user()->username . '| MyAchievement',
+        'title' => Auth::user()->username . ' | MyAchievement',
         'certificates' => Certificate::filter(request(['s', 'sort']))->where('user_id', Auth::id())->orderBy('course')->paginate(12),
     ]);
 })->middleware(['auth'])->name('profil');
 
+// Route Peringkat
 Route::get('/peringkat', function () {
-
     return view('peringkat.index', [
         'title' => 'Peringkat | MyAchievement',
         'users' => [User::firstWhere('id', 1), User::firstWhere('id', 2), User::firstWhere('id', 3)]
     ]);
 })->middleware(['auth'])->name('user');
 
-
+// Route Akun
 Route::get('/akun', function () {
-
     return view('accounts.index', [
-        'title' => Auth::user()->username . '| MyAchievement',
+        'title' => Auth::user()->username . ' | MyAchievement',
         'user' => User::firstWhere('id', Auth::id())
     ]);
 })->middleware(['auth'])->name('account');
 
 Route::post('/akun/{user:id}', [UserController::class, 'update']);
-
-
 
 require __DIR__ . '/auth.php';

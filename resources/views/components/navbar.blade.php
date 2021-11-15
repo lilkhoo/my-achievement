@@ -13,7 +13,7 @@
             </div>
          </div>
          <div class="nav__profile-container">
-            <img class="nav__profile-img" src="https://source.unsplash.com/random" alt="Foto Profile">
+            <img class="nav__profile-img" src="{{ (Auth::user()->is_edited) ? asset('avatar/' . Auth::user()->avatar) : Auth::user()->avatar }}" alt="{{ Auth::user()->name }}">
             <div class="nav__profile-links">
                <a class="nav__profile-link" href="/profil">
                   <i class='bx bx-user nav__profile-link-icon'></i>

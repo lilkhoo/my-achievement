@@ -5,7 +5,7 @@
    <div class="main__container">
       <div class="profile__top">
          <div class="profile__container">
-            <img class="profile__img" src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}">
+            <img class="profile__img" src="{{ (Auth::user()->is_edited) ? asset('avatar/' . Auth::user()->avatar) : Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" alt="{{ Auth::user()->name }}">
             <div>
                <h1 class="profile__name">{{ Auth::user()->name }}</h1>
                <p class="profile__username">{{ Auth::user()->username }}</p>
