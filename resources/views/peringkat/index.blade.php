@@ -7,26 +7,19 @@
          <h1 class="header">Ranking</h1>
          <div>
             <select name="" id="" class="select">
-               <option value="">Teratas</option>
-               <option value="">Terbawah</option>
-            </select>
-            <select name="" id="" class="select">
                <option value="">1 - 10</option>
-               <option value="">1 - 50</option>
-               <option value="">1 - 100</option>
-               <option value="">Semua</option>
             </select>
          </div>
       </div>
       <div class="user__container">
+         @php $no = 1 @endphp
 
          @foreach ($users as $user)
-         
          <div class="user__card">
             <div class="user__img">
                <img class="user__pic" src="{{ ($user->is_edited) ? asset('avatar/' . $user->avatar) : $user->avatar }}" alt="{{ $user->name }}">
                <div class="user__peringkat">
-                  <p class="user__peringkat-detail">1</p>
+                  <p class="user__peringkat-detail">{{ $no }}</p>
                </div>
             </div>
             <div class="user__detail">
@@ -38,17 +31,18 @@
                <div>
                   <div class="flex">
                      <strong class="w-24">Peringkat :</strong>
-                     <p>1</p>
+                     <p>{{ $no}}</p>
                   </div>
                   <div class="flex">
                      <strong class="w-24">Sertifikat :</strong>
-                     <p>26</p>
+                     <p>{{ ($user->certificate->count()) }}</p>
                   </div>
                </div>
             </div>
          </div>
          <hr>
          
+@php $no++ @endphp
          @endforeach
 
       </div>

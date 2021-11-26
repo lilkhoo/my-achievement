@@ -3,15 +3,14 @@
 @section('container')
 <section class="main">
    <div class="user">
-      <div class="user__search">
-         <input class="input" type="text" name="" id="" placeholder="Masukkan username/nama...">
+      <form action="/user" class="user__search">
+         <input class="input" type="search" name="search" placeholder="Masukkan username/nama..." value="{{ request('search') }}">
          <button class="btn">Cari</button>
-      </div>
+      </form>
       <div class="user__recomendation">
-         <h1 class="header">Rekomendasi</h1>
+         <h1 class="header">{{ (request('search')) ? 'Hasil pencarian' : 'Rekomendasi'  }}</h1>
+         @if(count($users))
          <div class="user__container">
-
-
             @foreach ($users as $user)
             <div class="user__card">
                <div class="user__img">
@@ -30,15 +29,17 @@
                      </div>
                      <div class="flex">
                         <strong class="w-24">Sertifikat</strong>
-                        <p>26</p>
+                        <p>{{ $user->certificate->count() }}</p>
                      </div>
                   </div>
                </div>
             </div>
             <hr>
-
             @endforeach
          </div>
+         @else
+         <p class="font-bold italic text-red-600 md:text-lg sm:text-base text-sm text-center">Kami tidak bisa menemukan : {{ request('search') }}</p>
+         @endif
       </div>
    </div>
 </section>

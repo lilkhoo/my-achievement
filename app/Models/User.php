@@ -37,10 +37,22 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be cast.
-     *
+     * 
      * @var array
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function certificate()
+    {
+        return $this->hasMany(Certificate::class);
+    }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            return $query->where('username', 'like', '%' . $search . '%')->orWhere('name', 'like', '%' . $search . '%');
+        });
+    }
 }

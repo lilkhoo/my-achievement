@@ -1,11 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\CertificatesController;
 use App\Http\Controllers\MyCertificatesController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\Certificate;
 use App\Http\Controllers\UserController;
+use App\Models\User\User as UserUser;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -28,10 +30,17 @@ Route::resource('/certificates', MyCertificatesController::class)->middleware(['
 
 // Route User
 Route::get('/user', function () {
-    return view('users.index', [
+    $data = [
         'title' => 'Users | MyAchievement',
-        'users' => [User::firstWhere('id', 1), User::firstWhere('id', 2), User::firstWhere('id', 3)]
-    ]);
+    ];
+
+    if (request('search')) {
+        $data['users'] = User::filter(request(['search']))->get();
+    } else {
+        $data['users'] = [User::firstWhere('id', 1), User::firstWhere('id', 2), User::firstWhere('id', 3)];
+    }
+
+    return view('users.index', $data);
 })->middleware(['auth'])->name('user');
 
 // Route Profil
@@ -44,9 +53,11 @@ Route::get('/profil', function () {
 
 // Route Peringkat
 Route::get('/peringkat', function () {
+    // SELECT users.*, (SELECT count(1) FROM certificates WHERE users.id = certificates.user_id) AS total FROM users ORDER BY total DESC
+
     return view('peringkat.index', [
         'title' => 'Peringkat | MyAchievement',
-        'users' => [User::firstWhere('id', 1), User::firstWhere('id', 2), User::firstWhere('id', 3)]
+        'users' => User::selectRaw('users.*, (SELECT count(1) FROM certificates WHERE users.id = certificates.user_id) AS total')->reorder('total', 'desc')->limit(10)->get()
     ]);
 })->middleware(['auth'])->name('user');
 
