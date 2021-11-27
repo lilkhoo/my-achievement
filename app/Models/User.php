@@ -25,6 +25,12 @@ class User extends Authenticatable
         'avatar',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
+
+
     /**
      * The attributes that should be hidden for serialization.
      *

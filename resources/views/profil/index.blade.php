@@ -5,10 +5,10 @@
    <div class="main__container">
       <div class="profile__top">
          <div class="profile__container">
-            <img class="profile__img" src="{{ (Auth::user()->is_edited) ? asset('avatar/' . Auth::user()->avatar) : Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" alt="{{ Auth::user()->name }}">
+            <img class="profile__img" src="{{ ($user->is_edited) ? asset('avatar/' . $user->avatar) : $user->avatar }}" alt="{{ $user->name }}" alt="{{ $user->name }}">
             <div>
-               <h1 class="profile__name">{{ Auth::user()->name }}</h1>
-               <p class="profile__username">{{ Auth::user()->username }}</p>
+               <h1 class="profile__name">{{ $user->name }}</h1>
+               <p class="profile__username">{{ $user->username }}</p>
             </div>
          </div>
       </div>
@@ -23,7 +23,7 @@
                   <a class="inline-block font-medium py-1.5 px-8 rounded-full bg-transparent border border-my-pink text-my-pink" href="?sort=terlama @if (request('s'))&s={{ request('s') }} @endif">Terlama</a>
                @endif
             </div>
-            <form action="/" class="profile__search">
+            <form action="{{ $page == 'home' ? '/' : '/users/' . $user->username  }}" class="profile__search">
                @if (request('sort'))
                    <input type="hidden" name="sort" value="{{ request('sort') }}">
                @endif

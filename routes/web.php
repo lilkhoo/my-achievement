@@ -48,6 +48,8 @@ Route::get('/profil', function () {
     return view('profil.index', [
         'title' => Auth::user()->username . ' | MyAchievement',
         'certificates' => Certificate::filter(request(['s', 'sort']))->where('user_id', Auth::id())->orderBy('course')->paginate(12),
+        'user' => Auth::user(),
+        'page' => 'home'
     ]);
 })->middleware(['auth'])->name('profil');
 
@@ -70,5 +72,7 @@ Route::get('/akun', function () {
 })->middleware(['auth'])->name('account');
 
 Route::post('/akun/{user:id}', [UserController::class, 'update']);
+
+Route::get('/users/{user}', [UserController::class, 'show']);
 
 require __DIR__ . '/auth.php';

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Certificate;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules;
+// use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -39,5 +42,20 @@ class UserController extends Controller
         User::where('id', $user->id)->update($validatedData);
 
         return redirect('/akun');
+    }
+
+    public function show(User $user)
+    {
+        // Jika user 
+        if (Auth::id() == $user->id) {
+            return redirect('/profil');
+        }
+
+        return view('profil.index', [
+            'title' => 'My Achievement | ' . $user->name,
+            'certificates' => Certificate::filter(request(['s', 'sort']))->where('user_id', $user->id)->orderBy('course')->paginate(12),
+            'user' => $user,
+            'page' => 'kontol'
+        ]);
     }
 }
